@@ -1,16 +1,3 @@
-def build_string(a):
-    arr1 = list(a)
-    empty_arr1 = []
-    for x in range(len(arr1)):
-        if arr1[x] == "#" and len(empty_arr1) > 0:
-            empty_arr1.pop()
-        else:
-            empty_arr1.append(arr1[x])
-    if "#" in empty_arr1:
-        empty_arr1.remove("#")
-    return empty_arr1
-
-
 class Solution(object):
     def backspaceCompare(self, s, t):
         """
@@ -18,9 +5,16 @@ class Solution(object):
         :type t: str
         :rtype: bool
         """
-        final_s = build_string(s)
-        final_t = build_string(t)
-        print(" ".join(final_s) == " ".join(final_t))
-        return " ".join(final_s) == " ".join(final_t)
+        def check(val):
+            ref = ""
+            for i in val:
+                if i == "#":
+                    if ref != "":
+                        ref =  ref[:-1]
+                    elif ref == "":
+                        pass
+                else:
+                    ref+=i
+            return ref
         
-        
+        return check(s) == check(t)
